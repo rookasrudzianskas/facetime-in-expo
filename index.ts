@@ -4,7 +4,8 @@
 // This enables autocomplete, go to definition, etc.
 import { StreamChat } from "https://esm.sh/stream-chat@8.13.1"
 
-const serverClient = StreamChat.getInstance('r56ue2bjerbr','armbc8q8gyegkbnyfea9kx486cr56cz6had9e7bacm2t5sakcdg3xjvjfccvn4sd');
+// const serverClient = StreamChat.getInstance('r56ue2bjerbr','armbc8q8gyegkbnyfea9kx486cr56cz6had9e7bacm2t5sakcdg3xjvjfccvn4sd');
+const serverClient = StreamChat.getInstance(Deno.env.get(STREAM_API_KEY), Deno.env.get(STREAM_API_SECRET));
 
 Deno.serve(async (req) => {
   const { name } = await req.json()
