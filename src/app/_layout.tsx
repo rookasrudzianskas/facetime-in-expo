@@ -5,6 +5,8 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { PermissionsAndroid, Platform } from 'react-native';
+import {client} from "../lib/stream";
+import {StreamVideo} from "@stream-io/video-react-native-sdk";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -59,11 +61,13 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <StreamVideo client={client}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+    </StreamVideo>
   );
 }
