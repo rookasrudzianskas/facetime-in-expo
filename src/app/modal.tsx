@@ -6,19 +6,21 @@ import {
   StreamCall,
   StreamVideo,
   StreamVideoClient,
-  User,
+  User, useStreamVideoClient,
 } from '@stream-io/video-react-native-sdk';
 import { useEffect, useState } from 'react';
-import {client} from "../lib/stream";
 
 const callId = 'default_cfac32cf-afb2-49ab-ad78-655c2604da5d';
 
 export default function ModalScreen() {
-  const [call] = useState(() => client.call('default', callId));
+  const client = useStreamVideoClient();
+  const [call] = useState(() => client?.call('default', callId));
 
   useEffect(() => {
-    call.join({ create: true });
+    call?.join({ create: true });
   }, [call]);
+
+  if(!call) return <Text>No call at all</Text>
 
   return (
     <View className="flex-1">
