@@ -2,6 +2,7 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {useStreamVideoClient} from "@stream-io/video-react-native-sdk";
+import {useRouter} from "expo-router";
 
 function generateRandomString(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -14,6 +15,7 @@ function generateRandomString(length) {
 }
 
 const HomeScreen = () => {
+  const router = useRouter();
   const client = useStreamVideoClient();
 
   const onCreateCall = () => {
@@ -21,8 +23,10 @@ const HomeScreen = () => {
       return;
     }
 
-    const callId = 'default_testing123';
-    client.call('default', callId);
+    const callId = generateRandomString(10);
+    const call = client.call('default', callId);
+    call.getOrCreate();
+    router.push('/call');
   }
 
   return (
