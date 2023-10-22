@@ -2,7 +2,7 @@
 // Follow this setup guide to integrate the Deno language server with your editor:
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
-import { StreamChat } from "https://esm.sh/stream-chat@8.13.1"
+import { StreamChat } from "https://esm.sh/stream-chat"
 
 // const serverClient = StreamChat.getInstance('r56ue2bjerbr','armbc8q8gyegkbnyfea9kx486cr56cz6had9e7bacm2t5sakcdg3xjvjfccvn4sd');
 const serverClient = StreamChat.getInstance(Deno.env.get(STREAM_API_KEY), Deno.env.get(STREAM_API_SECRET));
@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
     JSON.stringify(token),
     { headers: { "Content-Type": "application/json" } },
   )
-})
+});
 
 // To invoke:
 // curl -i --location --request POST 'http://localhost:54321/functions/v1/' \
