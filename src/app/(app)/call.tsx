@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, Text, View  } from 'react-native';
 
 import {
-  CallContent,
+  CallContent, CallTopView,
   StreamCall,
   StreamVideo,
   StreamVideoClient, useCalls,
@@ -26,7 +26,13 @@ export default function ModalScreen() {
   return (
     <View className="flex-1">
       <StreamCall call={call}>
-        <CallContent />
+        <CallContent
+          CallTopView={() => (
+            <>
+              <CallTopView title={call.id} />
+            </>
+          )}
+        />
       </StreamCall>
     </View>
   );
