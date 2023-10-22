@@ -29,7 +29,7 @@ export default function ModalScreen() {
         <CallContent
           CallTopView={() => (
             <>
-              <CallTopView title={call.id} />
+              <CallTopView title={`ID is ${call.id}`} />
             </>
           )}
         />
