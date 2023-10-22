@@ -25,7 +25,7 @@ const HomeScreen = () => {
 
     const callId = generateRandomString(10);
     const call = client.call('default', callId);
-    call.getOrCreate();
+    call.join({ create: true });
     router.push('/call');
   }
 
