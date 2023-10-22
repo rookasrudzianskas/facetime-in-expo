@@ -1,15 +1,23 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
+import {Text, View, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import {useStreamVideoClient} from "@stream-io/video-react-native-sdk";
+import {useRouter} from "expo-router";
 
 const JoinCall = () => {
+  const router = useRouter();
   const client = useStreamVideoClient();
   const [callId, setCallId] = useState('');
   const onJoin = () => {
     const call = client?.call('default', callId);
-    call.join();
-    router.push('/call');
+    try {
+      await call.join();
+      router.push('/call');
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Error', e.message);
+    }
+
   }
 
   return (
