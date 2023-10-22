@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {Session} from "@supabase/supabase-js";
 import {supabase} from "../lib/supabase";
 
@@ -38,3 +38,5 @@ export const AuthProvider = ({children}: { children: React.ReactNode }) => {
 };
 
 export default AuthContext;
+
+export const useAuth = () => useContext(AuthContext);
