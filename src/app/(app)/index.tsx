@@ -1,8 +1,9 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Button} from 'react-native';
 import {useStreamVideoClient} from "@stream-io/video-react-native-sdk";
 import {useRouter} from "expo-router";
+import {supabase} from "../../lib/supabase";
 
 function generateRandomString(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -41,6 +42,8 @@ const HomeScreen = () => {
           <Text>Join FaceTime</Text>
         </TouchableOpacity>
       </View>
+
+      <Button onPress={() => supabase.auth.signOut()} title={'Sign out'} />
     </View>
   );
 };
