@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import {supabase} from "../../lib/supabase";
+import {useRouter} from "expo-router";
 
 export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const router = useRouter();
   async function signInWithEmail() {
     setLoading(true)
     const { error } = await supabase.auth.signInWithPassword({
@@ -16,7 +17,8 @@ export default function Auth() {
     })
 
     if (error) Alert.alert(error.message)
-    setLoading(false)
+    setLoading(false);
+    router.replace('/');
   }
 
   async function signUpWithEmail() {
