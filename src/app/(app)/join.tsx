@@ -17,7 +17,6 @@ const JoinCall = () => {
       console.log(e);
       Alert.alert('Error', e.message);
     }
-
   }
 
   return (

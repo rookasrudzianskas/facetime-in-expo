@@ -2,13 +2,14 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useColorScheme } from 'react-native';
 import { PermissionsAndroid, Platform } from 'react-native';
 import {client} from "../lib/stream";
 import {StreamVideo} from "@stream-io/video-react-native-sdk";
 import {Session} from "@supabase/supabase-js";
 import {supabase} from "../lib/supabase";
+import {AuthProvider} from "../context/AuthProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -60,27 +61,18 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-  const [session, setSession] = useState<Session | null>(null)
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, []);
+  const colorScheme = useColorScheme()
 
   return (
-    <StreamVideo client={client}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(app)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-    </StreamVideo>
+    <AuthProvider>
+      <StreamVideo client={client}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="(app)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ headerShown: false }} />
+          </Stack>
+        </ThemeProvider>
+      </StreamVideo>
+    </AuthProvider>
   );
 }
