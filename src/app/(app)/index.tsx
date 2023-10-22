@@ -37,7 +37,7 @@ const HomeScreen = () => {
         <TouchableOpacity onPress={onCreateCall} activeOpacity={0.7} className="bg-blue-500 px-4 py-2">
           <Text>Create FaceTime</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 px-4 py-2">
+        <TouchableOpacity onPress={() => router.push('/join')} activeOpacity={0.7} className="bg-blue-500 px-4 py-2">
           <Text>Join FaceTime</Text>
         </TouchableOpacity>
       </View>
