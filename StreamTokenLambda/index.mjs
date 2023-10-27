@@ -19,12 +19,21 @@ const serverClient = StreamChat.getInstance(STREAM_API_KEY, STREAM_API_SECRET);
 export const handler = async (event) => {
   const authToken = event.queryStringParameters?.token;
 
+  if(!authToken) return new Error({
+    statusCode: 401,
+    body: JSON.stringify({
+      error: 'Unauthorized',
+    }),
+  });
+
   const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY,
     { global: { headers: { Authorization: `Bearer ${authToken}` } } }
   )
 
+  const { data: user } = await supabaseClient.auth.getUser();
+
   // Create User Token
-  const token = serverClient.createToken(user_id);
+  const token = serverClient.createToken(user.id);
 
   const response = {
     statusCode: 200,
