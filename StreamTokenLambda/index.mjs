@@ -18,14 +18,16 @@ const user_id = 'john'
 // Initialize a Server Client
 const serverClient = StreamChat.getInstance(STREAM_API_KEY, STREAM_API_SECRET);
 
-// Create User Token
-const token = serverClient.createToken(user_id);
-
 export const handler = async (event) => {
-  // TODO implement
+
+// Create User Token
+  const token = serverClient.createToken(user_id);
+
   const response = {
     statusCode: 200,
-    body: JSON.stringify('Hello from Lambda!'),
+    body: JSON.stringify({
+      token: token,
+    }),
   };
   return response;
 };
