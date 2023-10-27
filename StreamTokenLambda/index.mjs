@@ -1,12 +1,9 @@
-// Define values.
-// const api_key = 'r56ue2bjerbr'
-// const api_secret = 'armbc8q8gyegkbnyfea9kx486cr56cz6had9e7bacm2t5sakcdg3xjvjfccvn4sd'
-// const user_id = 'john'
-
 import {StreamChat} from "stream-chat";
 
-const SUPABASE_URL = process.env.SUPABASE_URL ?? '';
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY ?? '';
+// const SUPABASE_URL = process.env.SUPABASE_URL ?? '';
+// const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY ?? '';
+const SUPABASE_URL = 'https://izhyhtedfukdnoruqdza.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6aHlodGVkZnVrZG5vcnVxZHphIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5NjQ5NDgsImV4cCI6MjAxMzU0MDk0OH0.uQ23QDfJHV0K5f5s0wVaf2o7K_EioAPCHb5JNB0RUF8';
 
 // const STREAM_API_KEY = process.env.STREAM_API_KEY ?? '';
 // const STREAM_API_SECRET = process.env.STREAM_API_SECRET ?? '';
@@ -19,8 +16,7 @@ const user_id = 'john'
 const serverClient = StreamChat.getInstance(STREAM_API_KEY, STREAM_API_SECRET);
 
 export const handler = async (event) => {
-
-// Create User Token
+  // Create User Token
   const token = serverClient.createToken(user_id);
 
   const response = {
