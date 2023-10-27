@@ -1,42 +1,44 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {Session} from "@supabase/supabase-js";
-import {supabase} from "../lib/supabase";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { Session } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
 
 type AuthData = {
   session: Session | null;
   loading: boolean;
-}
+};
 
-const AuthContext = createContext<AuthData>({session: null, loading: false});
+const AuthContext = createContext<AuthData>({ session: null, loading: false });
 
-export const AuthProvider = ({children}: { children: React.ReactNode }) => {
+export function AuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true);
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+    const fetchSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setSession(session);
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    });
-    setLoading(false);
+      setLoading(false);
+    };
+
+    fetchSession();
+
+    supabase.auth.onAuthStateChange((_event, session) => setSession(session));
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        session,
-        loading: false
-      }}
-    >
+    <AuthContext.Provider value={{ session, loading }}>
       {children}
     </AuthContext.Provider>
-  )
-};
-
-export default AuthContext;
+  );
+}
 
 export const useAuth = () => useContext(AuthContext);

@@ -1,42 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Text, View  } from 'react-native';
-
+import { ActivityIndicator, Platform, StyleSheet, Text } from 'react-native';
+import { View } from '../../components/Themed';
 import {
-  CallContent, CallTopView,
+  CallContent,
   StreamCall,
-  StreamVideo,
-  StreamVideoClient, useCalls,
-  User, useStreamVideoClient,
+  useStreamVideoClient,
+  useCalls,
+  CallTopView,
 } from '@stream-io/video-react-native-sdk';
 import { useEffect, useState } from 'react';
-import {useRouter} from "expo-router";
+import { router } from 'expo-router';
 
-const callId = 'default_cfac32cf-afb2-49ab-ad78-655c2604da5d';
+const callId = 'default_72b0a2c7-32af-4af3-b1d1-1eff8abec69a';
 
-export default function ModalScreen() {
+export default function CallScreen() {
   const client = useStreamVideoClient();
+
   const calls = useCalls();
   const call = calls[0];
-  const router = useRouter();
+
+  // const [call] = useState(() => client?.call('default', callId));
 
   // useEffect(() => {
   //   call?.join({ create: true });
   // }, [call]);
 
-  if(!call) return <Text>No call at all</Text>
+  // if (!call) {
+  //   return <Text>Call not found!</Text>;
+  // }
+  if (!call) {
+    return <ActivityIndicator />;
+  }
 
   return (
-    <View className="flex-1">
+    <View style={styles.container}>
       <StreamCall call={call}>
         <CallContent
+          CallTopView={() => <CallTopView title={`ID: ${call.id}`} />}
           onHangupCallHandler={() => router.back()}
-          CallTopView={() => (
-            <>
-              <CallTopView title={`ID is ${call.id}`} />
-            </>
-          )}
         />
       </StreamCall>
+
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );
 }
@@ -44,5 +49,14 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
 });

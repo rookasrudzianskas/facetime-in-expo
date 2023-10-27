@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FACETIME",
-    "slug": "FACETIME",
+    "name": "Facetime",
+    "slug": "Facetime",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,19 +12,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rooookas.FACETIME"
+      "bundleIdentifier": "com.vadinsavin.Facetime"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.rooookas.FACETIME"
+      "package": "com.vadinsavin.Facetime"
     },
     "web": {
       "bundler": "metro",
