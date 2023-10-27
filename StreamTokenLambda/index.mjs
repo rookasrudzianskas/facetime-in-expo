@@ -1,4 +1,5 @@
 import {StreamChat} from "stream-chat";
+import {createClient} from "@supabase/supabase-js";
 
 // const SUPABASE_URL = process.env.SUPABASE_URL ?? '';
 // const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY ?? '';
@@ -16,6 +17,12 @@ const user_id = 'john'
 const serverClient = StreamChat.getInstance(STREAM_API_KEY, STREAM_API_SECRET);
 
 export const handler = async (event) => {
+  const authToken = event.queryStringParameters?.token;
+
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY,
+    { global: { headers: { Authorization: `Bearer ${authToken}` } } }
+  )
+
   // Create User Token
   const token = serverClient.createToken(user_id);
 
