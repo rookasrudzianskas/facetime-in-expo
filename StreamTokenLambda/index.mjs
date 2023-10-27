@@ -26,22 +26,32 @@ export const handler = async (event) => {
     }),
   });
 
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY,
-    { global: { headers: { Authorization: `Bearer ${authToken}` } } }
-  )
+  try {
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY,
+      { global: { headers: { Authorization: `Bearer ${authToken}` } } }
+    )
 
-  const { data: user } = await supabaseClient.auth.getUser();
+    const { data: user } = await supabaseClient.auth.getUser();
 
-  // Create User Token
-  const token = serverClient.createToken(user.id);
+    // Create User Token
+    const token = serverClient.createToken(user.id);
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      token: token,
-    }),
-  };
-  return response;
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        token: token,
+      }),
+    };
+    return response;
+  } catch (e) {
+    console.error(e);
+    return new Error({
+      statusCode: 500,
+      body: JSON.stringify({
+        error: 'Internal Server Error',
+      }),
+    });
+  }
 };
 
 console.log(await handler())
