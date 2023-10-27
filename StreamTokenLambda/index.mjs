@@ -33,6 +33,13 @@ export const handler = async (event) => {
 
     const { data: user } = await supabaseClient.auth.getUser();
 
+    if(!user) return new Error({
+      statusCode: 401,
+      body: JSON.stringify({
+        error: 'Unauthorized',
+      }),
+    });
+
     // Create User Token
     const token = serverClient.createToken(user.id);
 
@@ -53,5 +60,3 @@ export const handler = async (event) => {
     });
   }
 };
-
-console.log(await handler())
