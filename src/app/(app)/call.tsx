@@ -14,13 +14,22 @@ import { router } from 'expo-router';
 const callId = 'default_72b0a2c7-32af-4af3-b1d1-1eff8abec69a';
 
 export default function CallScreen() {
-  const client = useStreamVideoClient();
+  const [loaded, setLoaded] = useState(false);
 
   const calls = useCalls();
   const call = calls[0];
 
+  useEffect(() => {
+    if (!call && loaded) {
+      return router.back();
+    }
+    if (call && !loaded) {
+      setLoaded(true);
+    }
+  }, [call]);
+
   if (!call) {
-    return router.back();
+    return <Text>Call not found!</Text>;
   }
 
   return (
