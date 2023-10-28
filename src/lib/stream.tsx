@@ -5,8 +5,6 @@ import {useAuth} from "../context/AuthProvider";
 const apiKey = process.env.EXPO_PUBLIC_STREAM_API_KEY || '';
 const LAMBDA_URL = 'https://jccwdukwfiohnkotclpdzjskm40kmpbz.lambda-url.us-east-1.on.aws'
 const userId = 'rokas';
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmFkaW0ifQ.NV_QYM9kLATmjB21QX3_ZkhHj21d8sKOil3703tBrZQ';
 const user: User = { id: userId };
 
 export const client = new StreamVideoClient({ apiKey  });
@@ -20,6 +18,11 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
       const result = await fetch(
         `${LAMBDA_URL}/?token=${session?.access_token}`
       )
+      if(result.status === 200) {
+        const {token} = await result.json();
+
+        client.connectUser({ id: session.user.id }, token);
+      }
     }
     fetchToken();
   }, [session?.access_token]);
