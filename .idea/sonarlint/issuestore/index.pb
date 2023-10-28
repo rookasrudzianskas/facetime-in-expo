@@ -12,5 +12,3 @@ L
 src/context/AuthProvider.tsx,c/d/cd6a78dcab1b629cd91bc8e74fff0b836299306f
 I
 src/app/(app)/_layout.tsx,4/1/412bb6eed3ff900cdcf5b18c2b58b84a671340a2
-G
-src/app/(app)/index.tsx,1/3/1355e0e96bfd3c3a0f4361e58f9e30083ae206e9

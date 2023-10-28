@@ -40,6 +40,10 @@ const HomeScreen = () => {
         <Pressable onPress={() => router.push('/join')} style={styles.button}>
           <Text>Join Call</Text>
         </Pressable>
+
+        <Pressable onPress={() => router.push('/contacts')} style={styles.button}>
+          <Text>Contacts</Text>
+        </Pressable>
       </View>
 
       <Button title="Sign out" onPress={() => supabase.auth.signOut()} />
