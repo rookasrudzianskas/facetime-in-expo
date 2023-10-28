@@ -6,10 +6,9 @@ import {
 } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { PermissionsAndroid, Platform, useColorScheme } from 'react-native';
-import { StreamVideo } from '@stream-io/video-react-native-sdk';
-import { client } from '../lib/stream';
+import { StreamClientProvider } from '../lib/stream';
 import { AuthProvider } from '../context/AuthProvider';
 
 export {
@@ -66,7 +65,7 @@ function RootLayoutNav() {
 
   return (
     <AuthProvider>
-      <StreamVideo client={client}>
+      <StreamClientProvider>
         <ThemeProvider
           value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
         >
@@ -75,7 +74,10 @@ function RootLayoutNav() {
             <Stack.Screen name="modal" options={{}} />
           </Stack>
         </ThemeProvider>
-      </StreamVideo>
+      </StreamClientProvider>
     </AuthProvider>
   );
 }
+
+
+// Path: src/app/%28app%29/index.tsx
