@@ -6,7 +6,7 @@ import {
   StreamCall,
   useStreamVideoClient,
   useCalls,
-  CallTopView,
+  CallTopView, RingingCallContent,
 } from '@stream-io/video-react-native-sdk';
 import { useEffect, useState } from 'react';
 import { router } from 'expo-router';
@@ -35,9 +35,9 @@ export default function CallScreen() {
   return (
     <View style={styles.container}>
       <StreamCall call={call}>
-        <CallContent
+        <RingingCallContent
           CallTopView={() => <CallTopView title={`ID: ${call.id}`} />}
-          onHangupCallHandler={() => router.back()}
+          // onHangupCallHandler={() => router.back()}
         />
       </StreamCall>
 
