@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthProvider';
 import { useStreamVideoClient } from '@stream-io/video-react-native-sdk';
-// import { genRandomString } from '../../utils';
+import { genRandomString } from '../../utils';
 import { router } from 'expo-router';
 
 const ContactsScreen = () => {
@@ -22,29 +22,29 @@ const ContactsScreen = () => {
     fetchProfiles();
   }, []);
 
-  // const onUserPressed = (user) => {
-  //   if (!client) {
-  //     return;
-  //   }
-  //   const callId = genRandomString(5);
-  //   console.log('Creating a call with id: ', callId);
-  //
-  //   client.call('default', callId).getOrCreate({
-  //     ring: true,
-  //     data: {
-  //       members: [{ user_id: session?.user.id }, { user_id: user.id }],
-  //     },
-  //   });
-  //
-  //   router.push('/call');
-  // };
+  const onUserPressed = (user) => {
+    if (!client) {
+      return;
+    }
+    const callId = genRandomString(5);
+    console.log('Creating a call with id: ', callId);
+
+    client.call('default', callId).getOrCreate({
+      ring: true,
+      data: {
+        members: [{ user_id: session?.user.id }, { user_id: user.id }],
+      },
+    });
+
+    router.push('/call');
+  };
 
   return (
     <FlatList
       data={profiles}
       renderItem={({ item }) => (
         <Text
-          // onPress={() => onUserPressed(item)}
+          onPress={() => onUserPressed(item)}
           style={{
             padding: 10,
             margin: 5,
