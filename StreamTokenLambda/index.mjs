@@ -18,7 +18,7 @@ export const handler = async (event) => {
   if(!authToken) return new Error({
     statusCode: 401,
     body: JSON.stringify({
-      error: 'Unauthorized',
+      error: 'Unauthorized data',
     }),
   });
 
