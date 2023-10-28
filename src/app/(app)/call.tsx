@@ -19,17 +19,8 @@ export default function CallScreen() {
   const calls = useCalls();
   const call = calls[0];
 
-  // const [call] = useState(() => client?.call('default', callId));
-
-  // useEffect(() => {
-  //   call?.join({ create: true });
-  // }, [call]);
-
-  // if (!call) {
-  //   return <Text>Call not found!</Text>;
-  // }
   if (!call) {
-    return <ActivityIndicator />;
+    return router.back();
   }
 
   return (
